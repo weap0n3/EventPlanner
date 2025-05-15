@@ -4,12 +4,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EventPlanner.Gui"
+    xmlns:pages="clr-namespace:EventPlanner.Gui.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="EventPlanner.Gui">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Upcoming Events">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
+        </Tab>
+        <Tab Title="New Event">
+            <ShellContent
+                ContentTemplate="{DataTemplate pages:NewEventPage}"
+                Route="NewEventPage" />
+        </Tab>
+        <Tab Title="Calendar">
+            <ShellContent
+                ContentTemplate="{DataTemplate pages:CalendarPage}"
+                Route="CalendarPage" />
+        </Tab>
+        <Tab Title="All Events">
+            <ShellContent
+                ContentTemplate="{DataTemplate pages:AllEvents}"
+                Route="AllEventsPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>
