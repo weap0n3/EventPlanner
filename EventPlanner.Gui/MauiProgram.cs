@@ -15,6 +15,7 @@ namespace EventPlanner.Gui
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Raleway-VariableFont_wght.ttf", "Raleway");
                 });
 
 #if DEBUG
