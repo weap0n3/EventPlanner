@@ -1,7 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="EventPlanner.Gui.MainPage">
-    
-
+             x:Class="EventPlanner.Gui.MainPage"
+             Title="Upcoming Events">
+    <Grid RowDefinitions="*,*,*,*,*,*,*" Margin="20">
+        <Label Text="Today:" FontFamily="Raleway" FontSize="Large"/>
+        <CollectionView SelectionMode="Single" SelectedItem="{Binding}" Grid.Row="2" ItemsSource="{Binding}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
+                        
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
