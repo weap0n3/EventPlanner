@@ -67,6 +67,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\EventPlanner.Core\EventPlanner.Core.csproj" />
+	  <ProjectReference Include="..\EventPlanner.Data\EventPlanner.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Pages\AllEventsPage.xaml.cs">
 	    <DependentUpon>AllEventsPage.xaml</DependentUpon>
 	  </Compile>

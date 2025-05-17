@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using EventPlanner.Core.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace EventPlanner.Gui
@@ -17,6 +18,9 @@ namespace EventPlanner.Gui
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Raleway-VariableFont_wght.ttf", "Raleway");
                 });
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainViewModel>();
+
 
 #if DEBUG
     		builder.Logging.AddDebug();
