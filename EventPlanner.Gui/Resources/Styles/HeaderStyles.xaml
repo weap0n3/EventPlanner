@@ -38,11 +38,11 @@
         <!-- TabBar title color -->
         <Setter Property="Shell.TabBarTitleColor" 
             Value="{AppThemeBinding Light={StaticResource PrimaryBlueLight}, Dark={StaticResource PrimaryBlueDark}}" />
-
+        
         <!-- TabBar unselected color -->
         <Setter Property="Shell.TabBarUnselectedColor" 
             Value="{AppThemeBinding Light={StaticResource TabBarUnselectedLight}, Dark={StaticResource TabBarUnselectedDark}}" />
-
+        
         <!-- Add a subtle shadow to the TabBar to lift it visually -->
         <!--<Setter Property="Shell.TabBarShadow" Value="True" />-->
 
