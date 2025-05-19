@@ -4,6 +4,7 @@ using EventPlanner.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,17 @@ public partial class MainViewModel : ObservableObject
 {
     private List<Event> _events = new List<Event>()
     {
-        new Event("Gello",new DateTime(2025, 5, 18))
+        new Event("Gello",new DateTime(2025, 5, 19))
     };
 
+    private string[] _randomColors = { "#D8E2DC", "#FFD7BA", "#FEC5BB", "#FAE1DD" };
+
+
     [ObservableProperty]
-    private ObservableCollection<Event> _eventsToday;
+    private string _eventBackgroundColor;
+
+    [ObservableProperty]
+    private ObservableCollection<Event> _eventsToday = new();
 
     [ObservableProperty]
     private ObservableCollection<Event> _eventsUpcoming;
@@ -38,9 +45,13 @@ public partial class MainViewModel : ObservableObject
         this.Title = "Test";
         this.Description = "TEtstsetsetsetsfdasf";
         this.Date = new DateTime(2025,5,23);
-        _events.Add(new Event(Title, Date) 
+        this.EventBackgroundColor = _randomColors[new Random().Next(0, 3)];
+        System.Diagnostics.Debug.WriteLine(EventBackgroundColor);
+        _events.Add(new Event(Title, Date)
         {
-            Description = Description
+            Description = Description,
+            EventBackgroundColor = this.EventBackgroundColor
+
         });
         EventsToday = new ObservableCollection<Event>(_events.Where(e => e.Date == DateTime.Today));
         EventsUpcoming = new ObservableCollection<Event>(_events.Where(e => e.Date > DateTime.Today && e.Date <= DateTime.Today.AddDays(7)));

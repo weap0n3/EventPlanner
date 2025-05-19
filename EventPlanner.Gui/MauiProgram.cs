@@ -18,6 +18,7 @@ namespace EventPlanner.Gui
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Raleway-VariableFont.ttf", "Raleway");
                     fonts.AddFont("Inter-VariableFont.ttf", "Inter");
+                    fonts.AddFont("Raleway-Bold.ttf", "Raleway-Bold");
                 });
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
