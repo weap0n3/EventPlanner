@@ -3,43 +3,105 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventPlanner.Gui.MainPage"
              xmlns:viewmodels="clr-namespace:EventPlanner.Core.ViewModels;assembly=EventPlanner.Core"
-             x:DataType="viewmodels:MainViewModel"
              xmlns:models="clr-namespace:EventPlanner.Data.Models;assembly=EventPlanner.Data"
-             
+             x:DataType="viewmodels:MainViewModel"
+             BackgroundColor="#F8EDEB"
              Title="Upcoming Events">
-    <Grid RowDefinitions="*,*" Margin="20">
-        <Grid RowDefinitions="Auto,*">
-            <Label Text="Today:" FontFamily="Raleway" FontSize="Title"/>
-            <CollectionView SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding EventsToday}">
+
+    <ContentPage.Resources>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="15" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="10,10,60,10"/>
+            <Setter Property="Margin" Value="40"/>
+            <Setter Property="Background" Value="{Binding EventBackgroundColor}"/>
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Brush="Black" Opacity="0.2" Offset="5,5" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Raleway" />
+            <Setter Property="TextColor" Value="#1F2937" />
+        </Style>
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontFamily" Value="Raleway" />
+            <Setter Property="TextColor" Value="#1F2937" />
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontFamily" Value="Raleway-Bold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        <Style TargetType="CollectionView">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,*">
+        <Grid RowDefinitions="Auto,*" Margin="10" Padding="10">
+            <Label Text="Today:" Grid.Row="0" Style="{StaticResource Title}"/>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding EventsToday}" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Event">
-                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*" Padding="15">
-                            <Label Text="{Binding Title}"/>
-                            <Label Text="{Binding Description}" Grid.Row="1"/>
-                            <Label Text="{Binding Date}" Grid.Column="1"/>
-                            <Image Grid.Column="2"  Source="details.png" HeightRequest="20"/>
-                        </Grid>
+                        <Border Style="{StaticResource CardStyle}">
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
+                                <Grid.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontFamily" Value="Inter" />
+                                        <Setter Property="TextColor" Value="#1F2937" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
+                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                                       Grid.Column="1" Grid.RowSpan="2"
+                                       VerticalOptions="Center"
+                                       TextColor="#374151" />
+                                <Image Source="details.png"
+                                       Grid.Column="2" Grid.RowSpan="2"
+                                       HeightRequest="20" WidthRequest="20"
+                                       VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-        <Grid Grid.Row="1" RowDefinitions="Auto,*">
-            <Label Text="Upcoming: " FontFamily="Raleway" FontSize="Title"/>
-            <CollectionView SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding EventsUpcoming}">
+        <Grid RowDefinitions="Auto,*" Grid.Row="1" Margin="10" Padding="10">
+            <Label Text="Upcoming:" Style="{StaticResource Title}"/>
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding EventsUpcoming}" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Event">
-                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*" Padding="15">
-                            <Label Text="{Binding Title}"/>
-                            <Label Text="{Binding Description}" Grid.Row="1"/>
-                            <Label Text="{Binding Date}" Grid.Column="1" />
-                            <Image Grid.Column="2"  Source="details.png" HeightRequest="20"/>
-                        </Grid>
+                        <Border Style="{StaticResource CardStyle}">
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
+                                <Grid.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontFamily" Value="Inter" />
+                                        <Setter Property="TextColor" Value="#1F2937" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
+                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                                       Grid.Column="1" Grid.RowSpan="2"
+                                       VerticalOptions="Center"
+                                       TextColor="#374151" />
+                                <Image Source="details.png"
+                                       Grid.Column="2" Grid.RowSpan="2"
+                                       HeightRequest="20" WidthRequest="20"
+                                       VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
