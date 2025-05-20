@@ -28,6 +28,12 @@
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
+    <!--"#D8E2DC", "#FFD7BA", "#FEC5BB", "#FAE1DD"-->
+    <Color x:Key="PastelBLue">#D8E2DC</Color>
+    <Color x:Key="PastelLightYellow">#FFD7BA</Color>
+    <Color x:Key="PastelRed">#FEC5BB</Color>
+    <Color x:Key="PastelLightRed">#FAE1DD</Color>
+    
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>

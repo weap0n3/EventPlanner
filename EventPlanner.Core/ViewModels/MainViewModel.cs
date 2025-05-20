@@ -15,14 +15,10 @@ public partial class MainViewModel : ObservableObject
 {
     private List<Event> _events = new List<Event>()
     {
-        new Event("Gello",new DateTime(2025, 5, 19))
+        new Event("Gello",DateTime.Today)
     };
 
-    private string[] _randomColors = { "#D8E2DC", "#FFD7BA", "#FEC5BB", "#FAE1DD" };
-
-
-    [ObservableProperty]
-    private string _eventBackgroundColor;
+    private string[] _randomColors = { "PastelBLue", "PastelLightYellow", "PastelRed", "PastelLightRed" };
 
     [ObservableProperty]
     private ObservableCollection<Event> _eventsToday = new();
@@ -45,12 +41,11 @@ public partial class MainViewModel : ObservableObject
         this.Title = "Test";
         this.Description = "TEtstsetsetsetsfdasf";
         this.Date = new DateTime(2025,5,23);
-        this.EventBackgroundColor = _randomColors[new Random().Next(0, 3)];
-        System.Diagnostics.Debug.WriteLine(EventBackgroundColor);
+        //_events[0].ColorKey = _randomColors[new Random().Next(_randomColors.Length)];
         _events.Add(new Event(Title, Date)
         {
             Description = Description,
-            EventBackgroundColor = this.EventBackgroundColor
+            ColorKey = _randomColors[new Random().Next(_randomColors.Length)]
 
         });
         EventsToday = new ObservableCollection<Event>(_events.Where(e => e.Date == DateTime.Today));
