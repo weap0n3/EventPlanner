@@ -5,10 +5,14 @@
              xmlns:viewmodels="clr-namespace:EventPlanner.Core.ViewModels;assembly=EventPlanner.Core"
              xmlns:models="clr-namespace:EventPlanner.Data.Models;assembly=EventPlanner.Data"
              x:DataType="viewmodels:MainViewModel"
+             xmlns:converters="clr-namespace:EventPlanner.Gui.Converters"
              BackgroundColor="#F8EDEB"
              Title="Upcoming Events">
 
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ResourceKeyToColorConverter x:Key="ResourceKeyToColorConverter" />
+        </ResourceDictionary>
         <Style x:Key="CardStyle" TargetType="Border">
             <Setter Property="StrokeShape">
                 <Setter.Value>
@@ -17,7 +21,7 @@
             </Setter>
             <Setter Property="Padding" Value="10,10,60,10"/>
             <Setter Property="Margin" Value="40"/>
-            <Setter Property="Background" Value="{Binding EventBackgroundColor}"/>
+            <Setter Property="Background" Value="{Binding ColorKey, Converter={StaticResource ResourceKeyToColorConverter}}" />
             <Setter Property="Shadow">
                 <Setter.Value>
                     <Shadow Brush="Black" Opacity="0.2" Offset="5,5" />
@@ -38,6 +42,7 @@
         <Style TargetType="CollectionView">
             <Setter Property="BackgroundColor" Value="Transparent"/>
         </Style>
+
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*,*">
