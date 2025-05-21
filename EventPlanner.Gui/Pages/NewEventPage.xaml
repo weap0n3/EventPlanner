@@ -2,11 +2,31 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventPlanner.Gui.Pages.NewEventPage"
-             Title="NewEventPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F8EDEB">
+
+    <Border>
+        <Grid Margin="100,40,100,40" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" BackgroundColor="{StaticResource PastelBLue}">
+            <Grid.Resources>
+                <Style TargetType="Label" ApplyToDerivedTypes="True">
+                    <Setter Property="TextColor" Value="{StaticResource OffBlack}"/>
+                </Style>
+            </Grid.Resources>
+            <Label Text="Entry name of the event:" Grid.Row="0"/>
+            <Entry Text="{Binding Title}" Grid.Row="1"/>
+            <Label Text="Choose date for your event:" Grid.Row="2"/>
+            <DatePicker
+                Grid.Row="3"
+                x:Name="MyDatePicker"
+                Format="dd.MM.yyyy"
+                TextColor="Black"
+                BackgroundColor="White"
+                FontSize="14"
+                Margin="10"
+                HorizontalOptions="FillAndExpand" 
+                Date="{Binding Date}"/>
+            <Label Text="Add description" Grid.Row="4"/>
+            <Entry Text="{Binding Description}" Grid.Row="5"/>
+        </Grid>
+    </Border>
 </ContentPage>
