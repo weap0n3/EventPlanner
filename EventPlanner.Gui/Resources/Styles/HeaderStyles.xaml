@@ -7,47 +7,18 @@
     <Color x:Key="OffBlack">#121212</Color>
     <Color x:Key="PrimaryBlueLight">#2196F3</Color>
     <Color x:Key="PrimaryBlueDark">#90CAF9</Color>
-    <Color x:Key="TextDark">#333333</Color>
+    <Color x:Key="TextDark">#1F2937</Color>
     <Color x:Key="TextLight">#FFFFFF</Color>
-    <Color x:Key="UnselectedLight">#999999</Color>
-    <Color x:Key="UnselectedDark">#777777</Color>
-    <Color x:Key="TabBarUnselectedLight">#CCCCCC</Color>
-    <Color x:Key="TabBarUnselectedDark">#AAAAAA</Color>
+    <Color x:Key="TabBarUnselected">#666</Color>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <!-- Shell background adapts to theme -->
-        <Setter Property="Shell.BackgroundColor" 
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
-
-        <!-- Title color -->
-        <Setter Property="Shell.TitleColor" 
-            Value="{AppThemeBinding Light={StaticResource TextDark}, Dark={StaticResource TextLight}}" />
-
-        <!-- Foreground (active icon/text color) -->
-        <Setter Property="Shell.ForegroundColor" 
-            Value="{AppThemeBinding Light={StaticResource PrimaryBlueLight}, Dark={StaticResource PrimaryBlueDark}}" />
-
-        <!-- Unselected icons/text -->
-        <Setter Property="Shell.UnselectedColor" 
-            Value="{AppThemeBinding Light={StaticResource UnselectedLight}, Dark={StaticResource UnselectedDark}}" />
-
-        <!-- TabBar background -->
         <Setter Property="Shell.TabBarBackgroundColor" 
-            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
-
-        <!-- TabBar title color -->
+            Value="#F8EDEB" />
         <Setter Property="Shell.TabBarTitleColor" 
-            Value="{AppThemeBinding Light={StaticResource PrimaryBlueLight}, Dark={StaticResource PrimaryBlueDark}}" />
-        
-        <!-- TabBar unselected color -->
-        <Setter Property="Shell.TabBarUnselectedColor" 
-            Value="{AppThemeBinding Light={StaticResource TabBarUnselectedLight}, Dark={StaticResource TabBarUnselectedDark}}" />
-        
-        <!-- Add a subtle shadow to the TabBar to lift it visually -->
-        <!--<Setter Property="Shell.TabBarShadow" Value="True" />-->
+            Value="{StaticResource TextDark}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="#FCD5CE"/>
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabBarUnselected}"/>
 
-        <!-- TabBar height for better touch targets -->
-        <!--<Setter Property="Shell.TabBarHeight" Value="60" />-->
     </Style>
 
 </ResourceDictionary>

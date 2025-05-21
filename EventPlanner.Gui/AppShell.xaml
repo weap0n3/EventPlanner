@@ -8,12 +8,6 @@
     Shell.FlyoutBehavior="Flyout"
     Title="EventPlanner.Gui">
 
-    <Shell.Resources>
-        <Style Class="MenuItem" TargetType="Label">
-            <Setter Property="FontFamily" Value="Raleway" />
-            <Setter Property="FontSize"   Value="Large" />
-        </Style>
-    </Shell.Resources>
     <TabBar>
         <Tab Title="Upcoming Events">
             <ShellContent

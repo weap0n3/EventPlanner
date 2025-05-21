@@ -6,8 +6,8 @@
              xmlns:models="clr-namespace:EventPlanner.Data.Models;assembly=EventPlanner.Data"
              x:DataType="viewmodels:MainViewModel"
              xmlns:converters="clr-namespace:EventPlanner.Gui.Converters"
-             BackgroundColor="#F8EDEB"
-             Title="Upcoming Events">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F8EDEB">
 
     <ContentPage.Resources>
         <ResourceDictionary>
