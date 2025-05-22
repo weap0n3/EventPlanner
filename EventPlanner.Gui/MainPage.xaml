@@ -14,10 +14,7 @@
             <converters:ResourceKeyToColorConverter x:Key="ResourceKeyToColorConverter" />
         </ResourceDictionary>
         <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="StrokeShape">
-                <Setter.Value>
-                    <RoundRectangle CornerRadius="15" />
-                </Setter.Value>
+            <Setter Property="StrokeShape" Value="15">
             </Setter>
             <Setter Property="Padding" Value="10,10,60,10"/>
             <Setter Property="Margin" Value="40"/>
@@ -28,24 +25,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="Raleway" />
-            <Setter Property="TextColor" Value="#1F2937" />
-        </Style>
-        <Style x:Key="Title" TargetType="Label">
-            <Setter Property="FontFamily" Value="Raleway" />
-            <Setter Property="TextColor" Value="#1F2937" />
-            <Setter Property="FontSize" Value="32"/>
-            <Setter Property="FontFamily" Value="Raleway-Bold"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
-        </Style>
-        <Style TargetType="CollectionView">
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-        </Style>
+
 
     </ContentPage.Resources>
-
-    <Grid RowDefinitions="*,*">
+    <Grid RowDefinitions="2*,3*">
         <Grid RowDefinitions="Auto,*" Margin="10" Padding="10">
             <Label Text="Today:" Grid.Row="0" Style="{StaticResource Title}"/>
             <CollectionView Grid.Row="1" ItemsSource="{Binding EventsToday}" SelectionMode="Single">
@@ -56,12 +39,6 @@
                     <DataTemplate x:DataType="models:Event">
                         <Border Style="{StaticResource CardStyle}">
                             <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
-                                <Grid.Resources>
-                                    <Style TargetType="Label">
-                                        <Setter Property="FontFamily" Value="Inter" />
-                                        <Setter Property="TextColor" Value="#1F2937" />
-                                    </Style>
-                                </Grid.Resources>
                                 <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
                                 <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
                                 <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
@@ -80,7 +57,6 @@
         </Grid>
         <Grid RowDefinitions="Auto,*" Grid.Row="1" Margin="10" Padding="10">
             <Label Text="Upcoming:" Style="{StaticResource Title}"/>
-
             <CollectionView Grid.Row="1" ItemsSource="{Binding EventsUpcoming}" SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
@@ -89,12 +65,6 @@
                     <DataTemplate x:DataType="models:Event">
                         <Border Style="{StaticResource CardStyle}">
                             <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
-                                <Grid.Resources>
-                                    <Style TargetType="Label">
-                                        <Setter Property="FontFamily" Value="Inter" />
-                                        <Setter Property="TextColor" Value="#1F2937" />
-                                    </Style>
-                                </Grid.Resources>
                                 <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
                                 <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
                                 <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
