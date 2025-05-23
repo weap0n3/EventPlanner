@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using EventPlanner.Core.ViewModels;
+using EventPlanner.Gui.Pages;
 using Microsoft.Extensions.Logging;
 
 namespace EventPlanner.Gui
@@ -23,9 +24,11 @@ namespace EventPlanner.Gui
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
+            builder.Services.AddSingleton<NewEventPage>();
+            builder.Services.AddSingleton<AddViewModel>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

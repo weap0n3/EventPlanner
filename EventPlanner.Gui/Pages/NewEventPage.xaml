@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventPlanner.Gui.Pages.NewEventPage"
+             xmlns:viewmodels="clr-namespace:EventPlanner.Core.ViewModels;assembly=EventPlanner.Core"
+             x:DataType="viewmodels:AddViewModel"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#F8EDEB">
 
@@ -30,6 +32,24 @@
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="BackgroundColor" Value="#A4A6FF"/>
             <Setter Property="TextColor" Value="White"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#676AFF"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
         </Style>
         <Style x:Key="Datapickerstyle" TargetType="Border">
             <Setter Property="StrokeShape" Value="10"/>
@@ -74,7 +94,7 @@
                         Date="{Binding Date}"
                         HorizontalOptions="Center"/>
                 </Border>
-                <Button Grid.Row="5" Text="Add" Style="{StaticResource Addbutton}"/>
+                <Button Grid.Row="5" Text="Add" Style="{StaticResource Addbutton}" Command="{Binding AddCommand}"/>
             </Grid>
         </Border>
     </Grid>
