@@ -29,7 +29,7 @@ namespace EventPlanner.Gui
 
             var path = FileSystem.AppDataDirectory;
             System.Diagnostics.Debug.WriteLine("Path " + path);
-            string file = Path.Combine(path, "contacts.db");
+            string file = Path.Combine(path, "events.db");
 
             if (File.Exists(file))
             {

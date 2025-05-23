@@ -10,7 +10,7 @@ namespace EventPlanner.Data.Services;
 
 public class EventContext : DbContext
 {
-    public DbSet<Event> Contacts { get; set; }
+    public DbSet<Event> Events { get; set; }
 
     private string _dbPath;
 
