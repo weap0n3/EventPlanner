@@ -27,6 +27,19 @@ namespace EventPlanner.Gui
             builder.Services.AddSingleton<NewEventPage>();
             builder.Services.AddSingleton<AddViewModel>();
 
+            var path = FileSystem.AppDataDirectory;
+            System.Diagnostics.Debug.WriteLine("Path " + path);
+            string file = Path.Combine(path, "contacts.db");
+
+            if (File.Exists(file))
+            {
+                System.Diagnostics.Debug.WriteLine("File exists");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("File does not exist");
+            }
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
