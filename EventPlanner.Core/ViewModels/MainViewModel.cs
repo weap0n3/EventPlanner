@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using EventPlanner.Core.Messages;
 using EventPlanner.Data.Models;
 using EventPlanner.Data.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +22,13 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel(IDatabase db)
     {
         this._db = db;
+        WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
+        {
+            System.Diagnostics.Debug.WriteLine(r);
+            System.Diagnostics.Debug.WriteLine(m.Value);
+            _events.Add(AddColor(m.Value));
+            UpdateCollections();
+        });
     }
 
     private List<Event> _events = new List<Event>()
@@ -29,7 +39,7 @@ public partial class MainViewModel : ObservableObject
     private string[] _randomColors = { "PastelBLue", "PastelLightYellow", "PastelRed", "PastelLightRed" };
 
     [ObservableProperty]
-    private ObservableCollection<Event> _eventsToday = new();
+    private ObservableCollection<Event> _eventsToday;
 
     [ObservableProperty]
     private ObservableCollection<Event> _eventsUpcoming;
@@ -55,17 +65,26 @@ public partial class MainViewModel : ObservableObject
             var events = _db.GetEvents();
             foreach (var ev in events)
             {
-                do
-                {
-                    _backgroundColor = _randomColors[new Random().Next(_randomColors.Length)];
-                }
-                while (_backgroundColor == _events[_events.Count - 1].ColorKey);
-                ev.ColorKey = _backgroundColor;
-                _events.Add(ev);
+                _events.Add(AddColor(ev));
             }
-            EventsToday = new ObservableCollection<Event>(_events.Where(e => e.Date == DateTime.Today));
-            EventsUpcoming = new ObservableCollection<Event>(_events.Where(e => e.Date > DateTime.Today && e.Date <= DateTime.Today.AddDays(7)));
+            UpdateCollections();
             IsLoaded = !IsLoaded;
         }
+    }
+    private void UpdateCollections()
+    {
+        EventsToday = new ObservableCollection<Event>(_events.Where(e => e.Date == DateTime.Today));
+        EventsUpcoming = new ObservableCollection<Event>(_events.Where(e => e.Date > DateTime.Today && e.Date <= DateTime.Today.AddDays(7)));
+    }
+    Event AddColor(Event e)
+    {
+        var events = _db.GetEvents();
+        do
+        {
+            _backgroundColor = _randomColors[new Random().Next(_randomColors.Length)];
+        }
+        while (_backgroundColor == _events[_events.Count - 1].ColorKey);
+        e.ColorKey = _backgroundColor;
+        return e;
     }
 }

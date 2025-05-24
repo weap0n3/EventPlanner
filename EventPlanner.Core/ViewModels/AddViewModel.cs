@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using EventPlanner.Core.Messages;
 using EventPlanner.Data.Models;
 using EventPlanner.Data.Services;
 using System;
@@ -43,6 +45,7 @@ public partial class AddViewModel : ObservableObject
         var result = _db.AddEvent(e);
         if (result)
         {
+            WeakReferenceMessenger.Default.Send(new AddEventMessage(e));
             this.Title = "";
             this.Description = "";
             this.Date = DateTime.Today;
