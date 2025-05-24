@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using EventPlanner.Core.ViewModels;
+using EventPlanner.Data.Services;
 using EventPlanner.Gui.Pages;
 using Microsoft.Extensions.Logging;
 
@@ -39,6 +40,8 @@ namespace EventPlanner.Gui
             {
                 System.Diagnostics.Debug.WriteLine("File does not exist");
             }
+
+            builder.Services.AddSingleton<IDatabase>(new DBRepository(file));
 
 #if DEBUG
             builder.Logging.AddDebug();
