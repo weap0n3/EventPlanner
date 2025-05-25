@@ -19,14 +19,34 @@ public class DBRepository : IDatabase
     {
         try
         {
-            var context = new EventContext(_dbPath);
-            context.Add(e);
-            context.SaveChanges();
+            using(var context = new EventContext(_dbPath)) 
+            { 
+                context.Add(e);
+                context.SaveChanges();
+            }
             return true;
         } 
         catch(Exception err) 
         {
             System.Diagnostics.Debug.WriteLine(err);
+            return false;
+        }
+    }
+
+    public bool DeleteEvent(Event eventToDelete)
+    {
+        try
+        {
+            using(var context = new EventContext(_dbPath))
+            { 
+                context.Remove(eventToDelete);
+                context.SaveChanges();
+            }
+            return true;
+        }
+        catch (Exception err)
+        {
+            System.Diagnostics.Debug.WriteLine(err); 
             return false;
         }
     }

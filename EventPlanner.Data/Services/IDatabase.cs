@@ -11,4 +11,5 @@ public interface IDatabase
 {
     bool AddEvent(Event e);
     List<Event> GetEvents();
+    bool DeleteEvent(Event EventToDelete);
 }
