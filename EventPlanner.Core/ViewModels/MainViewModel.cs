@@ -10,11 +10,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EventPlanner.Core.ViewModels;
-
 public partial class MainViewModel : ObservableObject
 {
     IDatabase _db;
@@ -44,6 +44,17 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Event> _eventsUpcoming;
 
+    [ObservableProperty]
+    private Event? _selectedEvent = null;
+
+    partial void OnSelectedEventChanged(Event? value)
+    {
+        ShowDetails = true;
+    }
+
+    [ObservableProperty]
+    private bool _showDetails = false;
+
     private string _backgroundColor;
 
     [ObservableProperty]
@@ -56,6 +67,24 @@ public partial class MainViewModel : ObservableObject
     private DateTime _date;
 
     private bool IsLoaded = true;
+
+    [RelayCommand]
+    void Toggle()
+    {
+        ShowDetails = !ShowDetails;
+    }
+
+
+    [RelayCommand]
+    void DeleteEvent(Event eventToDelete)
+    {
+        var result = _db.DeleteEvent(eventToDelete);
+        if (result)
+        {
+            _events.Remove(eventToDelete);
+            UpdateCollections();
+        }
+    }
 
     [RelayCommand]
     void Load()
