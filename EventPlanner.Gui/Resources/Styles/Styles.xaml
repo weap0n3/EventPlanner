@@ -74,7 +74,7 @@
     </Style>
 
     <Style TargetType="DatePicker">
-        <Setter Property="TextColor" Value="#4E627E" />
+        <Setter Property="TextColor" Value="#253041" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="Inter"/>
         <Setter Property="FontSize" Value="17"/>

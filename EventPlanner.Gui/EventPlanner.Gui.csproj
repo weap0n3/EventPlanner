@@ -87,6 +87,9 @@
 	  <MauiXaml Update="Pages\NewEventPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Popups\EditDeletePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\HeaderStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
