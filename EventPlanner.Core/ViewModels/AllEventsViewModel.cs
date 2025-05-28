@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventPlanner.Core.ViewModels;
 
 namespace EventPlanner.Core.ViewModels;
 
@@ -20,7 +21,7 @@ public partial class AllEventsViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private ObservableCollection<Event> _events;
+    private ObservableCollection<Event> _events = new ObservableCollection<Event>();
 
     [ObservableProperty]
     private string _title;
@@ -41,7 +42,7 @@ public partial class AllEventsViewModel : ObservableObject
             var events = _db.GetEvents();
             foreach (var ev in events)
             {
-                _events.Add(ev);
+                Events.Add(ev);
             }
             IsLoaded = !IsLoaded;
         }

@@ -6,12 +6,12 @@
              xmlns:models="clr-namespace:EventPlanner.Data.Models;assembly=EventPlanner.Data"
              xmlns:viewmodels="clr-namespace:EventPlanner.Core.ViewModels;assembly=EventPlanner.Core"
              BackgroundColor="#F8EDEB">
-    <Grid RowDefinitions="auto,*">
+    <Grid RowDefinitions="auto,*" Margin="20">
         <Grid ColumnDefinitions="2*,*,*">
             <Label Text="Event"/>
             <Label Text="Date" Grid.Column="1"/>
         </Grid>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding EventsToday}" SelectionMode="Single" SelectedItem="{Binding SelectedEvent}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Events}" SelectionMode="Single" SelectedItem="{Binding SelectedEvent}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
             </CollectionView.ItemsLayout>

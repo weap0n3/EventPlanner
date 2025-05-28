@@ -28,6 +28,9 @@ namespace EventPlanner.Gui
             builder.Services.AddSingleton<NewEventPage>();
             builder.Services.AddSingleton<AddViewModel>();
 
+            builder.Services.AddSingleton<AllEvents>();
+            builder.Services.AddSingleton<AllEventsViewModel>();
+
             var path = FileSystem.AppDataDirectory;
             System.Diagnostics.Debug.WriteLine("Path " + path);
             string file = Path.Combine(path, "events.db");
