@@ -15,9 +15,11 @@ namespace EventPlanner.Core.ViewModels;
 public partial class AllEventsViewModel : ObservableObject
 {
     IDatabase _db;
-    public AllEventsViewModel(IDatabase db)
+    private readonly EventColorService _colorService;
+    public AllEventsViewModel(IDatabase db, EventColorService _colorService)
     {
         this._db = db;
+        this._colorService = _colorService;
     }
 
     [ObservableProperty]
@@ -32,17 +34,18 @@ public partial class AllEventsViewModel : ObservableObject
     [ObservableProperty]
     private DateTime _date;
 
-    private bool IsLoaded = true;
+    private bool IsLoaded = false;
 
     [RelayCommand]
     void Load()
     {
-        if (IsLoaded)
+        if (!IsLoaded)
         {
+            System.Diagnostics.Debug.WriteLine("LOaded");
             var events = _db.GetEvents();
             foreach (var ev in events)
             {
-                Events.Add(ev);
+                Events.Add(_colorService.AddColor(ev));
             }
             IsLoaded = !IsLoaded;
         }

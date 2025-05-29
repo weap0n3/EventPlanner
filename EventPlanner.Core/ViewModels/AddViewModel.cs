@@ -50,6 +50,5 @@ public partial class AddViewModel : ObservableObject
             this.Description = "";
             this.Date = DateTime.Today;
         }
-
     }
 }

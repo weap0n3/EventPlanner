@@ -19,24 +19,22 @@ public partial class MainViewModel : ObservableObject
 {
     IDatabase _db;
 
-    public MainViewModel(IDatabase db)
+    private readonly EventColorService _colorService;
+
+    public MainViewModel(IDatabase db, EventColorService colorService)
     {
         this._db = db;
+        this._colorService = colorService;
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
         {
             System.Diagnostics.Debug.WriteLine(r);
             System.Diagnostics.Debug.WriteLine(m.Value);
-            _events.Add(AddColor(m.Value));
+            _events.Add(_colorService.AddColor(m.Value));
             UpdateCollections();
         });
     }
 
-    private List<Event> _events = new List<Event>()
-    {
-        new Event("Gello", DateTime.Today)
-    };
-
-    private string[] _randomColors = { "PastelBLue", "PastelLightYellow", "PastelRed", "PastelLightRed" };
+    private List<Event> _events = new List<Event>();
 
     [ObservableProperty]
     private ObservableCollection<Event> _eventsToday;
@@ -55,7 +53,6 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private bool _showDetails = false;
 
-    private string _backgroundColor;
 
     [ObservableProperty]
     private string _title;
@@ -66,14 +63,13 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private DateTime _date;
 
-    private bool IsLoaded = true;
+    private bool IsLoaded = false;
 
     [RelayCommand]
     void Toggle()
     {
         ShowDetails = !ShowDetails;
     }
-
 
     [RelayCommand]
     void DeleteEvent(Event eventToDelete)
@@ -89,12 +85,13 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     void Load()
     {
-        if (IsLoaded)
+        if (!IsLoaded)
         {
             var events = _db.GetEvents();
+            
             foreach (var ev in events)
             {
-                _events.Add(AddColor(ev));
+                _events.Add(_colorService.AddColor(ev));
             }
             UpdateCollections();
             IsLoaded = !IsLoaded;
@@ -104,16 +101,5 @@ public partial class MainViewModel : ObservableObject
     {
         EventsToday = new ObservableCollection<Event>(_events.Where(e => e.Date == DateTime.Today));
         EventsUpcoming = new ObservableCollection<Event>(_events.Where(e => e.Date > DateTime.Today && e.Date <= DateTime.Today.AddDays(7)));
-    }
-    Event AddColor(Event e)
-    {
-        var events = _db.GetEvents();
-        do
-        {
-            _backgroundColor = _randomColors[new Random().Next(_randomColors.Length)];
-        }
-        while (_backgroundColor == _events[_events.Count - 1].ColorKey);
-        e.ColorKey = _backgroundColor;
-        return e;
     }
 }
