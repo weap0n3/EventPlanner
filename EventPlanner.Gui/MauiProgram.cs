@@ -31,6 +31,8 @@ namespace EventPlanner.Gui
             builder.Services.AddSingleton<AllEvents>();
             builder.Services.AddSingleton<AllEventsViewModel>();
 
+            builder.Services.AddSingleton<EventColorService>();
+
             var path = FileSystem.AppDataDirectory;
             System.Diagnostics.Debug.WriteLine("Path " + path);
             string file = Path.Combine(path, "events.db");
