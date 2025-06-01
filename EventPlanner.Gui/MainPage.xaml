@@ -42,6 +42,9 @@
                                                Grid.Column="2" Grid.RowSpan="2"
                                                HeightRequest="20" WidthRequest="20"
                                                VerticalOptions="Center" HorizontalOptions="End">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDetailsTapped"/>
+                                        </Image.GestureRecognizers>
                                     </Image>
                                 </Grid>
                             </Border>
@@ -68,7 +71,11 @@
                                     <Image Source="info.png"
                                            Grid.Column="2" Grid.RowSpan="2"
                                            HeightRequest="20" WidthRequest="20"
-                                           VerticalOptions="Center" HorizontalOptions="End"/>
+                                           VerticalOptions="Center" HorizontalOptions="End">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDetailsTapped"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -76,7 +83,7 @@
                 </CollectionView>
             </Grid>
         </Grid>
-        <Grid Grid.Column="1" RowDefinitions="Auto,Auto" IsVisible="{Binding ShowDetails}">
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto" IsVisible="false">
             <Button Text="Delete" Command="{Binding DeleteEventCommand}" CommandParameter="{Binding SelectedEvent}"/>
             <Button Text="Edit" Grid.Row="1" />
         </Grid>

@@ -1,16 +1,19 @@
 ﻿using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Views;
 using EventPlanner.Core.ViewModels;
+using EventPlanner.Data.Models;
 using EventPlanner.Gui.Popups;
 
 namespace EventPlanner.Gui
 {
     public partial class MainPage : ContentPage
     {
+        private readonly MainViewModel _mainViewModel;
         public MainPage(MainViewModel mainViewModel)
         {
             InitializeComponent();
-            this.BindingContext = mainViewModel;
+            this._mainViewModel = mainViewModel;
+            this.BindingContext = _mainViewModel;
 
             var behavior = new EventToCommandBehavior
             {
@@ -21,14 +24,13 @@ namespace EventPlanner.Gui
         }
         private void OnDetailsTapped(object sender, EventArgs e)
         {
-            DisplayPopup();
+            if ((sender as Image)?.BindingContext is Event selectedEvent)
+            {
+                var popup = new EditDeletePopup(selectedEvent, _mainViewModel._eventService); 
+                
+                this.ShowPopupAsync(popup); 
+            }
         }
 
-        public void DisplayPopup()
-        {
-            var popup = new EditDeletePopup();
-
-            this.ShowPopup(popup);
-        }
     }
 }

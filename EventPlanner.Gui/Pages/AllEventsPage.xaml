@@ -36,6 +36,9 @@
                                                Grid.Column="2" Grid.RowSpan="2"
                                                HeightRequest="20" WidthRequest="20"
                                                VerticalOptions="Center" HorizontalOptions="End">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDetailsTapped"/>
+                                </Image.GestureRecognizers>
                             </Image>
                         </Grid>
                     </Border>

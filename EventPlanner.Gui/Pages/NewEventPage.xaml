@@ -20,37 +20,6 @@
             <Setter Property="BackgroundColor" Value="#EAEFF5"/>
         </Style>
 
-        <Style x:Key="Addbutton" TargetType="Button">
-            <Setter Property="Shadow">
-                <Setter.Value>
-                    <Shadow Brush="Black" Opacity="0.2" Offset="5,5" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="FontFamily" Value="Raleway-Bold"/>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="WidthRequest" Value="200"/>
-            <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="BackgroundColor" Value="#A4A6FF"/>
-            <Setter Property="TextColor" Value="White"/>
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Disabled">
-                            <VisualState.Setters>
-                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
-                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="PointerOver">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="#676AFF"/>
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
         <Style x:Key="Datapickerstyle" TargetType="Border">
             <Setter Property="StrokeShape" Value="10"/>
             <Setter Property="Shadow">
@@ -94,7 +63,7 @@
                         Date="{Binding Date}"
                         HorizontalOptions="Center"/>
                 </Border>
-                <Button Grid.Row="5" Text="Add" Style="{StaticResource Addbutton}" Command="{Binding AddCommand}"/>
+                <Button Grid.Row="5" Text="Add" Style="{StaticResource ActionButton}" Command="{Binding AddCommand}"/>
             </Grid>
         </Border>
     </Grid>
