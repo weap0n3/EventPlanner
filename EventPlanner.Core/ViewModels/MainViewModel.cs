@@ -19,17 +19,24 @@ public partial class MainViewModel : ObservableObject
 {
     IDatabase _db;
 
-    private readonly EventColorService _colorService;
+    public EventService _eventService;
 
-    public MainViewModel(IDatabase db, EventColorService colorService)
+    public MainViewModel(IDatabase db, EventService colorService)
     {
         this._db = db;
-        this._colorService = colorService;
+        this._eventService = colorService;
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
         {
             System.Diagnostics.Debug.WriteLine(r);
             System.Diagnostics.Debug.WriteLine(m.Value);
-            _events.Add(_colorService.AddColor(m.Value));
+            _events.Add(_eventService.AddColor(m.Value));
+            UpdateCollections();
+        });
+        WeakReferenceMessenger.Default.Register<DeleteEventMessage>(this, (r, m) =>
+        {
+            System.Diagnostics.Debug.WriteLine(r);
+            System.Diagnostics.Debug.WriteLine(m.Value);
+            _events.Remove(m.Value);
             UpdateCollections();
         });
     }
@@ -53,7 +60,6 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private bool _showDetails = false;
 
-
     [ObservableProperty]
     private string _title;
 
@@ -72,27 +78,11 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    void DeleteEvent(Event eventToDelete)
-    {
-        var result = _db.DeleteEvent(eventToDelete);
-        if (result)
-        {
-            _events.Remove(eventToDelete);
-            UpdateCollections();
-        }
-    }
-
-    [RelayCommand]
     void Load()
     {
         if (!IsLoaded)
         {
-            var events = _db.GetEvents();
-            
-            foreach (var ev in events)
-            {
-                _events.Add(_colorService.AddColor(ev));
-            }
+            _events = _eventService.GetAll();
             UpdateCollections();
             IsLoaded = !IsLoaded;
         }

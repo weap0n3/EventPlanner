@@ -9,17 +9,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EventPlanner.Core.ViewModels;
+using EventPlanner.Core.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace EventPlanner.Core.ViewModels;
 
 public partial class AllEventsViewModel : ObservableObject
 {
     IDatabase _db;
-    private readonly EventColorService _colorService;
-    public AllEventsViewModel(IDatabase db, EventColorService _colorService)
+    public EventService _eventService;
+    public AllEventsViewModel(IDatabase db, EventService _colorService)
     {
         this._db = db;
-        this._colorService = _colorService;
+        this._eventService = _colorService;
+
+        WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
+        {
+            Events.Add(_eventService.AddColor(m.Value));
+        });
+
+        WeakReferenceMessenger.Default.Register<DeleteEventMessage>(this, (r, m) =>
+        {
+            Events.Remove(m.Value);
+        });
     }
 
     [ObservableProperty]
@@ -45,7 +57,7 @@ public partial class AllEventsViewModel : ObservableObject
             var events = _db.GetEvents();
             foreach (var ev in events)
             {
-                Events.Add(_colorService.AddColor(ev));
+                Events.Add(_eventService.AddColor(ev));
             }
             IsLoaded = !IsLoaded;
         }

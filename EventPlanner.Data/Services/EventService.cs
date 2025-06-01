@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Data.Services;
 
-public class EventColorService
+public class EventService
 {
+    IDatabase _db;
     private readonly string[] _randomColors = { "PastelBLue", "PastelLightYellow", "PastelRed", "PastelLightRed" }; // Example
     private string _lastColorKey;
 
     private readonly Random _random = new Random();
+
+    public EventService(IDatabase db)
+    {
+        this._db = db;
+    }
 
     public Event AddColor(Event e)
     {
@@ -25,5 +31,15 @@ public class EventColorService
         e.ColorKey = newColor;
         _lastColorKey = newColor;
         return e;
+    }
+
+    public List<Event> GetAll()
+    {
+        return _db.GetEvents().Select(AddColor).ToList();
+    }
+
+    public bool Delete(Event e)
+    { 
+        return _db.DeleteEvent(e); 
     }
 }
