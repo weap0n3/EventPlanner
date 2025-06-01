@@ -3,8 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="EventPlanner.Gui.Popups.EditDeletePopup">
-    <VerticalStackLayout>
-        <Image Source="delete.png" HeightRequest="20"></Image>
-        <Image Source="edit.png" HeightRequest="20"></Image>
-    </VerticalStackLayout>
+    <Grid HeightRequest="200">
+        <Border BackgroundColor="{StaticResource PastelRed}">
+            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="3*,*" VerticalOptions="Center"  WidthRequest="350" Padding="40,20,20,20" RowSpacing="10">
+                <Button Text="Edit" Style="{StaticResource ActionButton}" />
+                <Image Source="edit.png" HeightRequest="30" Grid.Column="1">
+                    <!--<Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped=""/>
+                    </Image.GestureRecognizers>-->
+                </Image>
+                <Button Text="Delete" Grid.Row="1" Clicked="OnDeleteClicked" Style="{StaticResource ActionButton}"/>
+                <Image Source="delete.png" HeightRequest="30" Grid.Row="1" Grid.Column="1" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnDeleteClicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+        </Border>
+    </Grid>
 </toolkit:Popup>
