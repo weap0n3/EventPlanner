@@ -58,4 +58,28 @@ public class DBRepository : IDatabase
                      select ev).ToList();
         return events;
     }
+
+    public bool UpdateEvent(Event oldEvent, Event newEvent)
+    {
+        try 
+        {
+            using (var context= new EventContext(_dbPath))
+            {
+                var entity = context.Events.Find(oldEvent.Id);
+                if (entity != null)
+                {
+                    entity.Title = newEvent.Title;
+                    entity.Description = newEvent.Description;
+                    entity.Date = newEvent.Date;
+                    context.SaveChanges();
+                }
+            }
+            return true;
+        }
+        catch (Exception err) 
+        { 
+            System.Diagnostics.Debug.WriteLine(err);
+            return false; 
+        }
+    }
 }

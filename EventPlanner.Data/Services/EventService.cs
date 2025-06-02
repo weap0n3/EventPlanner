@@ -13,6 +13,7 @@ public class EventService
     private readonly string[] _randomColors = { "PastelBLue", "PastelLightYellow", "PastelRed", "PastelLightRed" }; // Example
     private string _lastColorKey;
 
+
     private readonly Random _random = new Random();
 
     public EventService(IDatabase db)
@@ -41,5 +42,10 @@ public class EventService
     public bool Delete(Event e)
     { 
         return _db.DeleteEvent(e); 
+    }
+
+    public bool Update(Event oldEvent,Event newEvent)
+    {
+        return _db.UpdateEvent(oldEvent, newEvent);
     }
 }
