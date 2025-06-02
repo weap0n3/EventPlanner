@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            //Application.Current.UserAppTheme = AppTheme.Light;
+            Application.Current.UserAppTheme = AppTheme.Light;
 
         }
 

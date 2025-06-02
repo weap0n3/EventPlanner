@@ -20,7 +20,6 @@ public partial class EditDeletePopup : Popup
 
     private void OnDeleteClicked(object sender, EventArgs e)
     {
-        // Option 1: Use EventService directly (if injected)
         var result = _eventService.Delete(_event);
         if (result)
         {
