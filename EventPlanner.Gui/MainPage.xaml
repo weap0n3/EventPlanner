@@ -83,9 +83,11 @@
                 </CollectionView>
             </Grid>
         </Grid>
-        <Grid Grid.Column="1" RowDefinitions="Auto,Auto" IsVisible="false">
-            <Button Text="Delete" Command="{Binding DeleteEventCommand}" CommandParameter="{Binding SelectedEvent}"/>
-            <Button Text="Edit" Grid.Row="1" />
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto" IsVisible="{Binding ShowDetails}" Padding="20" RowSpacing="20" Background="{StaticResource PastelBLue}">
+            <Entry Text="{Binding EditedTitle}" />
+            <Entry Text="{Binding EditedDescription}" Grid.Row="1"/>
+            <DatePicker Date="{Binding EditedDate}" Grid.Row="2"/>
+            <Button Text="Edit" Command="{Binding EditCommand}" Grid.Row="3"/>
         </Grid>
     </Grid>
 </ContentPage>

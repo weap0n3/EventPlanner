@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using EventPlanner.Core.Messages;
 using EventPlanner.Data.Models;
 using EventPlanner.Data.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +24,7 @@ public partial class CalendarViewModel : ObservableObject
         CalendarEvents = new ObservableCollection<Event>(_eventService.GetAll());
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) => Load());
         WeakReferenceMessenger.Default.Register<DeleteEventMessage>(this, (r, m) => Load());
+        WeakReferenceMessenger.Default.Register<UpdateEventMessage>(this, (r, m) => Load());
     }
 
     [ObservableProperty]

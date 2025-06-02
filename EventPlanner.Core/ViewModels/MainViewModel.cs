@@ -41,6 +41,15 @@ public partial class MainViewModel : ObservableObject
                 UpdateCollections();
             }
         });
+        WeakReferenceMessenger.Default.Register<UpdateEventMessage>(this, (r, m) =>
+        {
+            _events = _eventService.GetAll();
+            UpdateCollections();
+        });
+        WeakReferenceMessenger.Default.Register<DetailsOpenMessage>(this, (r, m) =>
+        {
+            ShowDetails = true;
+        });
     }
 
     private List<Event> _events = new List<Event>();
@@ -56,7 +65,10 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnSelectedEventChanged(Event? value)
     {
-        ShowDetails = true;
+        //ShowDetails = true;
+        EditedTitle = SelectedEvent.Title;
+        EditedDescription = SelectedEvent.Description;
+        EditedDate = SelectedEvent.Date;
     }
 
     [ObservableProperty]
@@ -70,6 +82,15 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private DateTime _date;
+
+    [ObservableProperty]
+    private string _editedTitle;
+
+    [ObservableProperty]
+    private string _editedDescription;
+
+    [ObservableProperty]
+    private DateTime _editedDate;
 
     private bool IsLoaded = false;
 
@@ -89,6 +110,25 @@ public partial class MainViewModel : ObservableObject
             IsLoaded = !IsLoaded;
         }
     }
+
+    [RelayCommand]
+    void Edit()
+    {
+        var oldEvent = _events.FirstOrDefault(e => e.Id == SelectedEvent.Id);
+        var newEvent = new Event(EditedTitle, EditedDate)
+        {
+            Title = EditedTitle,
+            Date = EditedDate,
+            Description = EditedDescription
+        };
+        var result = _eventService.Update(oldEvent, newEvent);
+        if (result)
+        {
+            WeakReferenceMessenger.Default.Send(new UpdateEventMessage("Updated"));
+        }
+        ShowDetails = false;
+    }
+    
     private void UpdateCollections()
     {
         EventsToday = new ObservableCollection<Event>(_events.Where(e => e.Date == DateTime.Today));

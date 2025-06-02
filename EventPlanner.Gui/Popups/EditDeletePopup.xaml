@@ -6,11 +6,11 @@
     <Grid HeightRequest="200">
         <Border BackgroundColor="{StaticResource PastelRed}">
             <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="3*,*" VerticalOptions="Center"  WidthRequest="350" Padding="40,20,20,20" RowSpacing="10">
-                <Button Text="Edit" Style="{StaticResource ActionButton}" />
+                <Button Text="Edit" Style="{StaticResource ActionButton}" Clicked="OnEditClicked"/>
                 <Image Source="edit.png" HeightRequest="30" Grid.Column="1">
-                    <!--<Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped=""/>
-                    </Image.GestureRecognizers>-->
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnEditClicked"/>
+                    </Image.GestureRecognizers>
                 </Image>
                 <Button Text="Delete" Grid.Row="1" Clicked="OnDeleteClicked" Style="{StaticResource ActionButton}"/>
                 <Image Source="delete.png" HeightRequest="30" Grid.Row="1" Grid.Column="1" >

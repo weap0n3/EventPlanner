@@ -7,43 +7,56 @@
              xmlns:viewmodels="clr-namespace:EventPlanner.Core.ViewModels;assembly=EventPlanner.Core"
              xmlns:converters="clr-namespace:EventPlanner.Gui.Converters"
              x:DataType="viewmodels:AllEventsViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              BackgroundColor="#F8EDEB">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ResourceKeyToColorConverter x:Key="ResourceKeyToColorConverter" />
-        </ResourceDictionary>
+            <toolkit:BoolToObjectConverter x:Key="ShowPanelConverter" 
+                TrueObject="1" 
+                FalseObject="2"/>
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            </ResourceDictionary>
     </ContentPage.Resources>
-            <Grid RowDefinitions="auto,*" Margin="20">
-        <Grid ColumnDefinitions="2*,*,*">
-            <Label Text="Event"/>
-            <Label Text="Date" Grid.Column="1"/>
+        <Grid  ColumnDefinitions="2*,*" Margin="20">
+        <Grid Grid.ColumnSpan="{Binding ShowDetails, Converter={StaticResource ShowPanelConverter}}" RowDefinitions="auto,*">
+            <Grid ColumnDefinitions="2*,*,*">
+                <Label Text="Event"/>
+                <Label Text="Date" Grid.Column="1"/>
+            </Grid>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Events}" SelectionMode="Single" SelectedItem="{Binding SelectedEvent}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate >
+                    <DataTemplate x:DataType="models:Event">
+                        <Border Style="{StaticResource CardStyle}" BackgroundColor="{Binding ColorKey, Converter={StaticResource ResourceKeyToColorConverter}}">
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
+                                <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
+                                <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
+                                <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                                                   Grid.Column="1" Grid.RowSpan="2"
+                                                   VerticalOptions="Center"
+                                                   TextColor="#374151" />
+                                <Image Source="info.png"
+                                                   Grid.Column="2" Grid.RowSpan="2"
+                                                   HeightRequest="20" WidthRequest="20"
+                                                   VerticalOptions="Center" HorizontalOptions="End">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDetailsTapped"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Events}" SelectionMode="Single">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate >
-                <DataTemplate x:DataType="models:Event">
-                    <Border Style="{StaticResource CardStyle}" BackgroundColor="{Binding ColorKey, Converter={StaticResource ResourceKeyToColorConverter}}">
-                        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
-                            <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
-                            <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
-                            <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
-                                               Grid.Column="1" Grid.RowSpan="2"
-                                               VerticalOptions="Center"
-                                               TextColor="#374151" />
-                            <Image Source="info.png"
-                                               Grid.Column="2" Grid.RowSpan="2"
-                                               HeightRequest="20" WidthRequest="20"
-                                               VerticalOptions="Center" HorizontalOptions="End">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnDetailsTapped"/>
-                                </Image.GestureRecognizers>
-                            </Image>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto,Auto" IsVisible="{Binding ShowDetails}" Padding="20" RowSpacing="20" Background="{StaticResource PastelBLue}">
+            <Entry Text="{Binding EditedTitle}" />
+            <Entry Text="{Binding EditedDescription}" Grid.Row="1"/>
+            <DatePicker Date="{Binding EditedDate}" Grid.Row="2"/>
+            <Button Text="Edit" Command="{Binding EditCommand}" Grid.Row="3"/>
+        </Grid>
     </Grid>
 </ContentPage>

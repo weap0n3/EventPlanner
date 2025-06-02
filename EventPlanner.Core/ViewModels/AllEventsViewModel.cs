@@ -34,6 +34,14 @@ public partial class AllEventsViewModel : ObservableObject
                 Events.Remove(itemToRemove);
             }
         });
+        WeakReferenceMessenger.Default.Register<UpdateEventMessage>(this, (r, m) =>
+        {
+            Events = new ObservableCollection<Event>( _eventService.GetAll());
+        });
+        WeakReferenceMessenger.Default.Register<DetailsOpenMessage>(this, (r, m) =>
+        {
+            ShowDetails = true;
+        });
     }
 
     [ObservableProperty]
@@ -47,6 +55,47 @@ public partial class AllEventsViewModel : ObservableObject
 
     [ObservableProperty]
     private DateTime _date;
+
+    [ObservableProperty]
+    private Event? _selectedEvent = null;
+
+    partial void OnSelectedEventChanged(Event? value)
+    {
+        //ShowDetails = true;
+        EditedTitle = SelectedEvent.Title;
+        EditedDescription = SelectedEvent.Description;
+        EditedDate = SelectedEvent.Date;
+    }
+
+    [ObservableProperty]
+    private bool _showDetails = false;
+
+    [ObservableProperty]
+    private string _editedTitle;
+
+    [ObservableProperty]
+    private string _editedDescription;
+
+    [ObservableProperty]
+    private DateTime _editedDate;
+
+    [RelayCommand]
+    void Edit()
+    {
+        var oldEvent = _events.FirstOrDefault(e => e.Id == SelectedEvent.Id);
+        var newEvent = new Event(EditedTitle, EditedDate)
+        {
+            Title = EditedTitle,
+            Date = EditedDate,
+            Description = EditedDescription
+        };
+        var result = _eventService.Update(oldEvent, newEvent);
+        if (result)
+        {
+            WeakReferenceMessenger.Default.Send(new UpdateEventMessage("Updated"));
+        }
+        ShowDetails = false;
+    }
 
     private bool IsLoaded = false;
 

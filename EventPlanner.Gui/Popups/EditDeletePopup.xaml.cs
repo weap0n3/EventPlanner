@@ -27,4 +27,9 @@ public partial class EditDeletePopup : Popup
         }
         Close();
     }
+    private void OnEditClicked(object sender, EventArgs e)
+    {
+        WeakReferenceMessenger.Default.Send(new DetailsOpenMessage("open"));
+        Close();
+    }
 }
