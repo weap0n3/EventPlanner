@@ -3,6 +3,7 @@ using EventPlanner.Core.ViewModels;
 using EventPlanner.Data.Services;
 using EventPlanner.Gui.Pages;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace EventPlanner.Gui
 {
@@ -11,6 +12,7 @@ namespace EventPlanner.Gui
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            builder.ConfigureSyncfusionCore();
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
@@ -32,6 +34,9 @@ namespace EventPlanner.Gui
             builder.Services.AddSingleton<AllEventsViewModel>();
 
             builder.Services.AddSingleton<EventService>();
+
+            builder.Services.AddSingleton<CalendarPage>();
+            builder.Services.AddSingleton<CalendarViewModel>();
 
             var path = FileSystem.AppDataDirectory;
             System.Diagnostics.Debug.WriteLine("Path " + path);
