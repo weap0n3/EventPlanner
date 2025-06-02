@@ -17,13 +17,11 @@ using System.Threading.Tasks;
 namespace EventPlanner.Core.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
-    IDatabase _db;
 
     public EventService _eventService;
 
-    public MainViewModel(IDatabase db, EventService colorService)
+    public MainViewModel(EventService colorService)
     {
-        this._db = db;
         this._eventService = colorService;
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
         {
@@ -36,8 +34,12 @@ public partial class MainViewModel : ObservableObject
         {
             System.Diagnostics.Debug.WriteLine(r);
             System.Diagnostics.Debug.WriteLine(m.Value);
-            _events.Remove(m.Value);
-            UpdateCollections();
+            var itemToRemove = _events.FirstOrDefault(ev => ev.Id == m.Value.Id);
+            if (itemToRemove != null)
+            {
+                _events.Remove(itemToRemove);
+                UpdateCollections();
+            }
         });
     }
 

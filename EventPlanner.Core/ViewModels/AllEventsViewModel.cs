@@ -16,11 +16,9 @@ namespace EventPlanner.Core.ViewModels;
 
 public partial class AllEventsViewModel : ObservableObject
 {
-    IDatabase _db;
     public EventService _eventService;
-    public AllEventsViewModel(IDatabase db, EventService _colorService)
+    public AllEventsViewModel(EventService _colorService)
     {
-        this._db = db;
         this._eventService = _colorService;
 
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
@@ -30,7 +28,11 @@ public partial class AllEventsViewModel : ObservableObject
 
         WeakReferenceMessenger.Default.Register<DeleteEventMessage>(this, (r, m) =>
         {
-            Events.Remove(m.Value);
+            var itemToRemove = Events.FirstOrDefault(ev => ev.Id == m.Value.Id);
+            if (itemToRemove != null)
+            {
+                Events.Remove(itemToRemove);
+            }
         });
     }
 
@@ -53,12 +55,7 @@ public partial class AllEventsViewModel : ObservableObject
     {
         if (!IsLoaded)
         {
-            System.Diagnostics.Debug.WriteLine("LOaded");
-            var events = _db.GetEvents();
-            foreach (var ev in events)
-            {
-                Events.Add(_eventService.AddColor(ev));
-            }
+            Events = new ObservableCollection<Event>(_eventService.GetAll());
             IsLoaded = !IsLoaded;
         }
     }
