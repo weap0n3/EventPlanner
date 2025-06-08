@@ -9,18 +9,18 @@ namespace EventPlanner.Gui.Popups;
 public partial class EditDeletePopup : Popup
 {
     private readonly Event _event;
-    private EventService _eventService;
+    IDatabase _db;
 
-    public EditDeletePopup(Event ev, EventService eventService)
+    public EditDeletePopup(Event ev, IDatabase db)
     {
         InitializeComponent();
         _event = ev;
-        this._eventService = eventService;
+        this._db = db;
     }
 
     private void OnDeleteClicked(object sender, EventArgs e)
     {
-        var result = _eventService.Delete(_event);
+        var result = _db.DeleteEvent(_event);
         if (result)
         {
             WeakReferenceMessenger.Default.Send(new DeleteEventMessage(_event));

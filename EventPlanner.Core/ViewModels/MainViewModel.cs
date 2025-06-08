@@ -17,17 +17,15 @@ using System.Threading.Tasks;
 namespace EventPlanner.Core.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
-
-    public EventService _eventService;
-
-    public MainViewModel(EventService colorService)
+    public IDatabase _db;
+    public MainViewModel(IDatabase db)
     {
-        this._eventService = colorService;
+        _db = db;
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
         {
             System.Diagnostics.Debug.WriteLine(r);
             System.Diagnostics.Debug.WriteLine(m.Value);
-            _events.Add(_eventService.AddColor(m.Value));
+            _events.Add(m.Value);
             UpdateCollections();
         });
         WeakReferenceMessenger.Default.Register<DeleteEventMessage>(this, (r, m) =>
@@ -43,7 +41,7 @@ public partial class MainViewModel : ObservableObject
         });
         WeakReferenceMessenger.Default.Register<UpdateEventMessage>(this, (r, m) =>
         {
-            _events = _eventService.GetAll();
+            _events = _db.GetEvents();
             UpdateCollections();
         });
         WeakReferenceMessenger.Default.Register<DetailsOpenMessage>(this, (r, m) =>
@@ -65,10 +63,9 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnSelectedEventChanged(Event? value)
     {
-        //ShowDetails = true;
-        EditedTitle = SelectedEvent.Title;
-        EditedDescription = SelectedEvent.Description;
-        EditedDate = SelectedEvent.Date;
+        EditedTitle = SelectedEvent?.Title ?? "";
+        EditedDescription = SelectedEvent?.Description ?? "";
+        EditedDate = SelectedEvent?.Date ?? DateTime.Today;
     }
 
     [ObservableProperty]
@@ -95,17 +92,11 @@ public partial class MainViewModel : ObservableObject
     private bool IsLoaded = false;
 
     [RelayCommand]
-    void Toggle()
-    {
-        ShowDetails = !ShowDetails;
-    }
-
-    [RelayCommand]
     void Load()
     {
         if (!IsLoaded)
         {
-            _events = _eventService.GetAll();
+            _events = _db.GetEvents();
             UpdateCollections();
             IsLoaded = !IsLoaded;
         }
@@ -121,7 +112,7 @@ public partial class MainViewModel : ObservableObject
             Date = EditedDate,
             Description = EditedDescription
         };
-        var result = _eventService.Update(oldEvent, newEvent);
+        var result = _db.UpdateEvent(oldEvent, newEvent);
         if (result)
         {
             WeakReferenceMessenger.Default.Send(new UpdateEventMessage("Updated"));

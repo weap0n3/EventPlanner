@@ -15,6 +15,9 @@ namespace EventPlanner.Core.ViewModels;
 public partial class AddViewModel : ObservableObject
 {
     IDatabase _db;
+    private readonly string[] _randomColors = { "PastelBLue", "PastelLightYellow", "PastelRed", "PastelLightRed" };
+    private string _newColor = string.Empty;
+    private readonly Random _random = new Random();
 
     public AddViewModel(IDatabase db)
     {
@@ -26,7 +29,7 @@ public partial class AddViewModel : ObservableObject
     private string _title = string.Empty;
 
     [ObservableProperty]
-    private string _description;
+    private string _description = string.Empty;
 
     [ObservableProperty]
     private DateTime _date = DateTime.Today;
@@ -37,11 +40,19 @@ public partial class AddViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanAdd))]
     void Add()
     {
+        var lastEventColor = _db.GetEvents().LastOrDefault()?.ColorKey ?? "";
+
+        do
+        {
+            _newColor = _randomColors[_random.Next(_randomColors.Length)];
+        } while (_newColor == lastEventColor);
+
         Event e = new Event(Title, Date)
         {
             Description = Description,
-            ColorKey = ""
+            ColorKey = _newColor
         };
+
         var result = _db.AddEvent(e);
         if (result)
         {

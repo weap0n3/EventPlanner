@@ -16,14 +16,14 @@ namespace EventPlanner.Core.ViewModels;
 
 public partial class AllEventsViewModel : ObservableObject
 {
-    public EventService _eventService;
-    public AllEventsViewModel(EventService _colorService)
+    IDatabase _db;
+    public AllEventsViewModel(IDatabase db)
     {
-        this._eventService = _colorService;
+        this._db = db;
 
         WeakReferenceMessenger.Default.Register<AddEventMessage>(this, (r, m) =>
         {
-            Events.Add(_eventService.AddColor(m.Value));
+            Events.Add(m.Value);
         });
 
         WeakReferenceMessenger.Default.Register<DeleteEventMessage>(this, (r, m) =>
@@ -36,7 +36,7 @@ public partial class AllEventsViewModel : ObservableObject
         });
         WeakReferenceMessenger.Default.Register<UpdateEventMessage>(this, (r, m) =>
         {
-            Events = new ObservableCollection<Event>( _eventService.GetAll());
+            Events = new ObservableCollection<Event>(_db.GetEvents());
         });
         WeakReferenceMessenger.Default.Register<DetailsOpenMessage>(this, (r, m) =>
         {
@@ -61,10 +61,9 @@ public partial class AllEventsViewModel : ObservableObject
 
     partial void OnSelectedEventChanged(Event? value)
     {
-        //ShowDetails = true;
-        EditedTitle = SelectedEvent.Title;
-        EditedDescription = SelectedEvent.Description;
-        EditedDate = SelectedEvent.Date;
+        EditedTitle = SelectedEvent?.Title?? "";
+        EditedDescription = SelectedEvent?.Description ?? "";
+        EditedDate = SelectedEvent?.Date ?? DateTime.Today;
     }
 
     [ObservableProperty]
@@ -89,7 +88,7 @@ public partial class AllEventsViewModel : ObservableObject
             Date = EditedDate,
             Description = EditedDescription
         };
-        var result = _eventService.Update(oldEvent, newEvent);
+        var result = _db.UpdateEvent(oldEvent, newEvent);
         if (result)
         {
             WeakReferenceMessenger.Default.Send(new UpdateEventMessage("Updated"));
@@ -104,7 +103,7 @@ public partial class AllEventsViewModel : ObservableObject
     {
         if (!IsLoaded)
         {
-            Events = new ObservableCollection<Event>(_eventService.GetAll());
+            Events = new ObservableCollection<Event>(_db.GetEvents());
             IsLoaded = !IsLoaded;
         }
     }
