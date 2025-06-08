@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EventPlanner.Data.Models;
 
@@ -12,9 +14,11 @@ public class Event
 
     public string Title { get; set; }
     public DateTime Date { get; set; }
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    public string ColorKey { get; set; }
+    public string ColorKey { get; set; } = string.Empty;
+
+
 
     public Event(string title, DateTime date)
     {
