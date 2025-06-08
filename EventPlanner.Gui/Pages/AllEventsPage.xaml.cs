@@ -2,6 +2,7 @@ using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Views;
 using EventPlanner.Core.ViewModels;
 using EventPlanner.Data.Models;
+using EventPlanner.Data.Services;
 using EventPlanner.Gui.Popups;
 
 namespace EventPlanner.Gui.Pages;
@@ -9,9 +10,11 @@ namespace EventPlanner.Gui.Pages;
 public partial class AllEvents : ContentPage
 {
     private readonly AllEventsViewModel _allEventsViewModel;
-	public AllEvents(AllEventsViewModel viewModel)
+    IDatabase _db;
+	public AllEvents(AllEventsViewModel viewModel,IDatabase db)
 	{
 		InitializeComponent();
+        this._db = db;
         this._allEventsViewModel = viewModel;
 		this.BindingContext = _allEventsViewModel;
 
@@ -26,7 +29,7 @@ public partial class AllEvents : ContentPage
     {
         if ((sender as Image)?.BindingContext is Event selectedEvent)
         {
-            var popup = new EditDeletePopup(selectedEvent, _allEventsViewModel._eventService); 
+            var popup = new EditDeletePopup(selectedEvent, _db); 
 
             this.ShowPopupAsync(popup); 
         }
