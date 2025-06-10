@@ -9,5 +9,10 @@ public partial class NewEventPage : ContentPage
 		InitializeComponent();
 
 		this.BindingContext = viewModel;
-	}
+
+    }
+    private void Button_Clicked(object sender, System.EventArgs e)
+    {
+        this.picker.IsOpen = true;
+    }
 }

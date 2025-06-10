@@ -16,7 +16,7 @@ public partial class CalendarPage : ContentPage
         SfScheduler scheduler = new SfScheduler
         {
             View = SchedulerView.Month,
-            MinimumDateTime = new DateTime(2025, 1, 1),
+            MinimumDateTime = new DateTime(2025, 1, 1), 
             MaximumDateTime = new DateTime(2025, 12, 31)
         };
         var mapping = new SchedulerAppointmentMapping

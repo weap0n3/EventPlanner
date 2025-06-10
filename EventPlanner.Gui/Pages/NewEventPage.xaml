@@ -5,7 +5,8 @@
              xmlns:viewmodels="clr-namespace:EventPlanner.Core.ViewModels;assembly=EventPlanner.Core"
              x:DataType="viewmodels:AddViewModel"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="#F8EDEB">
+             BackgroundColor="#F8EDEB"
+             xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker">
 
     <ContentPage.Resources>
         <Style x:Key="Entrystyle" TargetType="Border">
@@ -52,9 +53,28 @@
                     <Entry Text="{Binding Title}" Placeholder="Entry name of the event" HorizontalOptions="Center" />
                 </Border>
                 
-                <Border Style="{StaticResource Entrystyle}" Grid.Row="3">
+                <Border Style="{StaticResource Entrystyle}" Grid.Row="2">
                     <Entry Text="{Binding Description}" Placeholder="Add description" HorizontalOptions="Center"/>
                 </Border>
+
+                <Grid Grid.Row="3" BackgroundColor="Transparent">
+                    <picker:SfPicker x:Name="picker" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
+                        <picker:SfPicker.HeaderView>
+                            <picker:PickerHeaderView Text="Select a color"/>
+                        </picker:SfPicker.HeaderView>
+                        <picker:SfPicker.Columns>
+                            <picker:PickerColumn ItemsSource="{Binding Categories}" />
+                        </picker:SfPicker.Columns>
+                    </picker:SfPicker>
+                    <Button Text="Select Category" 
+                            x:Name="pickerButton"
+                            Clicked="Button_Clicked"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            HeightRequest="50" 
+                            WidthRequest="150">
+                    </Button>
+                </Grid>
 
                 <Border Grid.Row="4" Style="{StaticResource Datapickerstyle}">
                     <DatePicker 
