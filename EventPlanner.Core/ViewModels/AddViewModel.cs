@@ -6,6 +6,7 @@ using EventPlanner.Data.Models;
 using EventPlanner.Data.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,11 @@ public partial class AddViewModel : ObservableObject
     [ObservableProperty]
     private DateTime _date = DateTime.Today;
 
+    [ObservableProperty]
+    ObservableCollection<string> _categories = new ObservableCollection<string>()
+    {
+        "Birthdays", "Holidays & Festivities", "Appointments", "Personal Milestones", "Reminders & Tasks"
+    };
 
     private bool CanAdd => Title != "";
 
