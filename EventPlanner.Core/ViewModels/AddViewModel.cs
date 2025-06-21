@@ -41,6 +41,9 @@ public partial class AddViewModel : ObservableObject
         "Birthdays", "Holidays & Festivities", "Appointments", "Personal Milestones", "Reminders & Tasks"
     };
 
+    [ObservableProperty]
+    private string _selectedCategory = "Select Category";
+
     private bool CanAdd => Title != "";
 
     [RelayCommand(CanExecute = nameof(CanAdd))]

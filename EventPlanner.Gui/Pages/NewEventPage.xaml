@@ -6,9 +6,16 @@
              x:DataType="viewmodels:AddViewModel"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#F8EDEB"
-             xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker">
+             xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
 
     <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
+            <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
+
+        </ResourceDictionary>
         <Style x:Key="Entrystyle" TargetType="Border">
             <Setter Property="StrokeShape" Value="10"/>
             <Setter Property="Shadow">
@@ -59,16 +66,13 @@
                 </Border>
 
                 <Border Grid.Row="3" Style="{StaticResource Datapickerstyle}">
-                    <Grid BackgroundColor="Transparent">
-                        <picker:SfPicker x:Name="picker" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
-                            <picker:SfPicker.HeaderView>
-                                <picker:PickerHeaderView Text="Select a color"/>
-                            </picker:SfPicker.HeaderView>
+                    <Grid RowDefinitions="*">
+                        <picker:SfPicker x:Name="picker" SelectionChanged="picker_SelectionChanged" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
                             <picker:SfPicker.Columns>
                                 <picker:PickerColumn ItemsSource="{Binding Categories}" />
                             </picker:SfPicker.Columns>
                         </picker:SfPicker>
-                        <Button Text="Select Category"  
+                        <Button Text="{Binding SelectedCategory}"  
                                 x:Name="pickerButton"
                                 HorizontalOptions="Center"
                                 Clicked="Button_Clicked"
@@ -77,8 +81,16 @@
                                 WidthRequest="350" 
                                 FontFamily="Inter"
                                 FontSize="17"
-                                TextColor="#4E627E" BackgroundColor="#EAEFF5">
+                                TextColor="#1F2937" 
+                                BackgroundColor="#EAEFF5"
+                                Grid.Row="0">
                         </Button>
+                        <Label Text="{Binding SelectedCategory}" IsVisible="False" 
+                               Grid.Row="0"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               FontFamily="Inter"
+                               FontSize="17"/>
                     </Grid>
                 </Border>
                 <Border Grid.Row="4" Style="{StaticResource Datapickerstyle}">
