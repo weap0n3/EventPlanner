@@ -17,6 +17,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="WidthRequest" Value="350"/>
+            <Setter Property="HeightRequest" Value="50"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="BackgroundColor" Value="#EAEFF5"/>
         </Style>
@@ -29,9 +30,9 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="WidthRequest" Value="350"/>
+            <Setter Property="HeightRequest" Value="50"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="BackgroundColor" Value="#EAEFF5"/>
-            <Setter Property="Margin" Value="0,13,0,13"/>
         </Style>
 
     </ContentPage.Resources>
@@ -52,30 +53,34 @@
                 <Border Grid.Row="1" Style="{StaticResource Entrystyle}">
                     <Entry Text="{Binding Title}" Placeholder="Entry name of the event" HorizontalOptions="Center" />
                 </Border>
-                
+
                 <Border Style="{StaticResource Entrystyle}" Grid.Row="2">
                     <Entry Text="{Binding Description}" Placeholder="Add description" HorizontalOptions="Center"/>
                 </Border>
 
-                <Grid Grid.Row="3" BackgroundColor="Transparent">
-                    <picker:SfPicker x:Name="picker" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
-                        <picker:SfPicker.HeaderView>
-                            <picker:PickerHeaderView Text="Select a color"/>
-                        </picker:SfPicker.HeaderView>
-                        <picker:SfPicker.Columns>
-                            <picker:PickerColumn ItemsSource="{Binding Categories}" />
-                        </picker:SfPicker.Columns>
-                    </picker:SfPicker>
-                    <Button Text="Select Category" 
-                            x:Name="pickerButton"
-                            Clicked="Button_Clicked"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            HeightRequest="50" 
-                            WidthRequest="150">
-                    </Button>
-                </Grid>
-
+                <Border Grid.Row="3" Style="{StaticResource Datapickerstyle}">
+                    <Grid BackgroundColor="Transparent">
+                        <picker:SfPicker x:Name="picker" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
+                            <picker:SfPicker.HeaderView>
+                                <picker:PickerHeaderView Text="Select a color"/>
+                            </picker:SfPicker.HeaderView>
+                            <picker:SfPicker.Columns>
+                                <picker:PickerColumn ItemsSource="{Binding Categories}" />
+                            </picker:SfPicker.Columns>
+                        </picker:SfPicker>
+                        <Button Text="Select Category"  
+                                x:Name="pickerButton"
+                                HorizontalOptions="Center"
+                                Clicked="Button_Clicked"
+                                VerticalOptions="Center"
+                                HeightRequest="50" 
+                                WidthRequest="350" 
+                                FontFamily="Inter"
+                                FontSize="17"
+                                TextColor="#4E627E" BackgroundColor="#EAEFF5">
+                        </Button>
+                    </Grid>
+                </Border>
                 <Border Grid.Row="4" Style="{StaticResource Datapickerstyle}">
                     <DatePicker 
                         x:Name="MyDatePicker"
@@ -87,4 +92,5 @@
             </Grid>
         </Border>
     </Grid>
+
 </ContentPage>
