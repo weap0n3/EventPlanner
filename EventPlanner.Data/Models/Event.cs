@@ -11,6 +11,7 @@ namespace EventPlanner.Data.Models;
 public class Event
 {
     public int Id { get; set; }
+    public int CategoryId { get; set; }
 
     public string Title { get; set; }
     public DateTime Date { get; set; }
@@ -20,9 +21,10 @@ public class Event
 
 
 
-    public Event(string title, DateTime date)
+    public Event(string title, DateTime date,int categoryId)
     {
         this.Title = title;
         this.Date = date;
+        this.CategoryId = categoryId;
     }
 }
