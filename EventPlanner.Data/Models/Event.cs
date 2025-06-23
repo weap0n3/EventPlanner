@@ -12,6 +12,7 @@ public class Event
 {
     public int Id { get; set; }
     public int CategoryId { get; set; }
+    public string CategoryTitle { get; set; }
 
     public string Title { get; set; }
     public DateTime Date { get; set; }
@@ -19,12 +20,15 @@ public class Event
 
     public string ColorKey { get; set; } = string.Empty;
 
+    public Event()
+    {
+        
+    }
 
-
-    public Event(string title, DateTime date,int categoryId)
+    public Event(string title, DateTime date,string categorytitle)
     {
         this.Title = title;
         this.Date = date;
-        this.CategoryId = categoryId;
+        this.CategoryTitle = categorytitle;
     }
 }
