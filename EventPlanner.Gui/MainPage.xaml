@@ -33,7 +33,7 @@
                             <Border Style="{StaticResource CardStyle}" BackgroundColor="{Binding ColorKey, Converter={StaticResource ResourceKeyToColorConverter}}">
                                 <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
                                     <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
-                                    <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
+                                    <Label Text="{Binding CategoryTitle}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
                                     <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
                                                Grid.Column="1" Grid.RowSpan="2"
                                                VerticalOptions="Center"
@@ -63,7 +63,7 @@
                             <Border Style="{StaticResource CardStyle}" BackgroundColor="{Binding ColorKey, Converter={StaticResource ResourceKeyToColorConverter}}">
                                 <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*,*">
                                     <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
-                                    <Label Text="{Binding Description}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
+                                    <Label Text="{Binding CategoryTitle}" Grid.Row="1" FontSize="14" TextColor="#6B7280"/>
                                     <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
                                            Grid.Column="1" Grid.RowSpan="2"
                                            VerticalOptions="Center"
