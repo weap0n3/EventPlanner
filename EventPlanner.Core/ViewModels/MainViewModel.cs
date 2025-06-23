@@ -106,7 +106,7 @@ public partial class MainViewModel : ObservableObject
     void Edit()
     {
         var oldEvent = _events.FirstOrDefault(e => e.Id == SelectedEvent.Id);
-        var newEvent = new Event(EditedTitle, EditedDate, SelectedEvent.CategoryId)
+        var newEvent = new Event(EditedTitle, EditedDate, SelectedEvent.CategoryTitle)
         {
             Title = EditedTitle,
             Date = EditedDate,

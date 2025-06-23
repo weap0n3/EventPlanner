@@ -56,19 +56,21 @@ public partial class AddViewModel : ObservableObject
             _newColor = _randomColors[_random.Next(_randomColors.Length)];
         } while (_newColor == lastEventColor);
 
-        Event e = new Event(Title, Date, Categories.IndexOf(SelectedCategory) + 1)
+        Event e = new Event(Title, Date, SelectedCategory)
         {
             Description = Description,
             ColorKey = _newColor
         };
 
         var result = _db.AddEvent(e);
+        System.Diagnostics.Debug.WriteLine(result);
         if (result)
         {
             WeakReferenceMessenger.Default.Send(new AddEventMessage(e));
             this.Title = "";
             this.Description = "";
             this.Date = DateTime.Today;
+            this.SelectedCategory = "Select Category";
         }
     }
 }
