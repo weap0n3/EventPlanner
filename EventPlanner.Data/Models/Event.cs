@@ -12,7 +12,7 @@ public class Event
 {
     public int Id { get; set; }
     public int CategoryId { get; set; }
-    public string CategoryTitle { get; set; }
+    public Category Category { get; set; }
 
     public string Title { get; set; }
     public DateTime Date { get; set; }
@@ -25,10 +25,10 @@ public class Event
         
     }
 
-    public Event(string title, DateTime date,string categorytitle)
+    public Event(string title, DateTime date, int categoryId)
     {
         this.Title = title;
         this.Date = date;
-        this.CategoryTitle = categorytitle;
+        this.CategoryId = categoryId;
     }
 }
