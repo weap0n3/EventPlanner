@@ -1,4 +1,5 @@
 ﻿using EventPlanner.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,8 @@ public class DBRepository : IDatabase
         try
         {
             using(var context = new EventContext(_dbPath)) 
-            { 
+            {
+                context.Attach(e.Category); 
                 context.Add(e);
                 context.SaveChanges();
             }
@@ -54,8 +56,7 @@ public class DBRepository : IDatabase
     public List<Event> GetEvents()
     {
         var context = new EventContext(_dbPath);
-        var events = (from ev in context.Events
-                     select ev).ToList();
+        var events = context.Events.Include(e => e.Category).ToList();
         return events;
     }
 
@@ -80,6 +81,21 @@ public class DBRepository : IDatabase
         { 
             System.Diagnostics.Debug.WriteLine(err);
             return false; 
+        }
+    }
+
+    public Category GetCategoryByTitle(string title)
+    {
+        using (var context = new EventContext(_dbPath))
+        {
+            return context.Categories?.FirstOrDefault(c => c.Title == title);
+        }
+    }
+    public Category GetCategoryById(int id)
+    {
+        using (var context = new EventContext(_dbPath))
+        {
+            return context.Categories?.FirstOrDefault(c => c.CategoryId == id);
         }
     }
 }

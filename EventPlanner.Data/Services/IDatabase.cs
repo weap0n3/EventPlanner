@@ -13,4 +13,6 @@ public interface IDatabase
     List<Event> GetEvents();
     bool DeleteEvent(Event EventToDelete);
     bool UpdateEvent(Event oldEvent,Event newEvent);
+    Category GetCategoryByTitle(string title);
+    Category GetCategoryById(int id);
 }
