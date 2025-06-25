@@ -18,8 +18,8 @@
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
             </ResourceDictionary>
     </ContentPage.Resources>
-        <Grid  ColumnDefinitions="2*,*" Margin="20">
-        <Grid Grid.ColumnSpan="{Binding ShowDetails, Converter={StaticResource ShowPanelConverter}}" RowDefinitions="auto,*">
+        <Grid  ColumnDefinitions="2*,*">
+        <Grid Grid.ColumnSpan="{Binding ShowDetails, Converter={StaticResource ShowPanelConverter}}" RowDefinitions="auto,*" Margin="20">
             <Grid ColumnDefinitions="2*,*,*">
                 <Label Text="Event"/>
                 <Label Text="Date" Grid.Column="1"/>

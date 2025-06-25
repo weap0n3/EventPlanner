@@ -40,7 +40,14 @@ public partial class AllEventsViewModel : ObservableObject
         });
         WeakReferenceMessenger.Default.Register<DetailsOpenMessage>(this, (r, m) =>
         {
-            ShowDetails = true;
+            if (SelectedEvent != null)
+            {
+                ShowDetails = true;
+            }
+        });
+        WeakReferenceMessenger.Default.Register<DetailsCloseMessage>(this, (r, m) =>
+        {
+            ShowDetails = false;
         });
     }
 
@@ -92,8 +99,9 @@ public partial class AllEventsViewModel : ObservableObject
         if (result)
         {
             WeakReferenceMessenger.Default.Send(new UpdateEventMessage("Updated"));
+            WeakReferenceMessenger.Default.Send(new DetailsCloseMessage("Close"));
+            SelectedEvent = null;
         }
-        ShowDetails = false;
     }
 
     private bool IsLoaded = false;
