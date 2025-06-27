@@ -69,10 +69,14 @@
 
                 <Border Grid.Row="3" Style="{StaticResource Datapickerstyle}">
                     <Grid RowDefinitions="*">
-                        <picker:SfPicker x:Name="picker" SelectionChanged="picker_SelectionChanged" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
+                        <picker:SfPicker  x:Name="picker" OkButtonClicked="OkButton_Clicked" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
                             <picker:SfPicker.Columns>
-                                <picker:PickerColumn ItemsSource="{Binding Categories}" />
+                                <picker:PickerColumn ItemsSource="{Binding Categories}">
+                                </picker:PickerColumn>
                             </picker:SfPicker.Columns>
+                            <picker:SfPicker.FooterView>
+                                <picker:PickerFooterView ShowOkButton="True" Height="40" />
+                            </picker:SfPicker.FooterView>
                         </picker:SfPicker>
                         <Button Text="{Binding SelectedCategory}"  
                                 x:Name="pickerButton"
