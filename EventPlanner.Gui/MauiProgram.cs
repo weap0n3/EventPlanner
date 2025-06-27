@@ -23,6 +23,7 @@ namespace EventPlanner.Gui
                     fonts.AddFont("Raleway-VariableFont.ttf", "Raleway");
                     fonts.AddFont("Inter-VariableFont.ttf", "Inter");
                     fonts.AddFont("Raleway-Bold.ttf", "Raleway-Bold");
+                    fonts.AddFont("segoeuithis.ttf", "Segoe UI");
                 });
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
