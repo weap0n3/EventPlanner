@@ -102,11 +102,25 @@
                     </Grid>
                 </Border>
                 <Border Grid.Row="4" Style="{StaticResource Datapickerstyle}">
-                    <DatePicker 
-                        x:Name="MyDatePicker"
-                        Format="dd.MM.yyyy"
-                        Date="{Binding Date}"
-                        HorizontalOptions="Center"/>
+                    <Grid>
+                        <Label IsVisible="{Binding Date,Converter={StaticResource IsNullConverter}}" 
+                               Text="Select a date" 
+                               VerticalOptions="Center"
+                               TextColor="#4E627E"
+                               FontFamily="Inter"
+                               FontSize="17"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowDatePickerCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <DatePicker 
+                            IsVisible="{Binding Date,Converter={StaticResource IsNotNullConverter}}"
+                            x:Name="MyDatePicker"
+                            Format="dd.MM.yyyy"
+                            Date="{Binding Date}"
+                            HorizontalOptions="Center"/>
+                    </Grid>
                 </Border>
                 <Button Grid.Row="5" Text="Add" Style="{StaticResource ActionButton}" Command="{Binding AddCommand}"/>
             </Grid>

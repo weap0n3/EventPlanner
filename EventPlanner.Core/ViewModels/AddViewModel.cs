@@ -23,6 +23,7 @@ public partial class AddViewModel : ObservableObject
     public AddViewModel(IDatabase db)
     {
         this._db = db;
+        Date = null;
     }
 
     [NotifyCanExecuteChangedFor(nameof(AddCommand))]
@@ -33,7 +34,7 @@ public partial class AddViewModel : ObservableObject
     private string _description = string.Empty;
 
     [ObservableProperty]
-    private DateTime _date = DateTime.Today;
+    private DateTime? _date;
 
     [ObservableProperty]
     ObservableCollection<string> _categories = new ObservableCollection<string>()
@@ -56,7 +57,7 @@ public partial class AddViewModel : ObservableObject
             _newColor = _randomColors[_random.Next(_randomColors.Length)];
         } while (_newColor == lastEventColor);
 
-        Event e = new Event(Title, Date, Categories.IndexOf(SelectedCategory) + 1)
+        Event e = new Event(Title, Date ?? DateTime.Today, Categories.IndexOf(SelectedCategory) + 1)
         {
             Description = Description,
             ColorKey = _newColor,
@@ -69,8 +70,14 @@ public partial class AddViewModel : ObservableObject
             WeakReferenceMessenger.Default.Send(new AddEventMessage(e));
             this.Title = "";
             this.Description = "";
-            this.Date = DateTime.Today;
+            this.Date = null;
             this.SelectedCategory = "Select Category";
         }
     }
+    [RelayCommand]
+    void ShowDatePicker()
+    {
+        Date = DateTime.Today; // or open programmatically if needed
+    }
+
 }
