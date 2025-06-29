@@ -16,6 +16,8 @@
             <converters:CategoryToColorConverter x:Key="CategoryToColorConverter" />
             <toolkit:IsStringNotNullOrEmptyConverter x:Key="IsStringNotNullOrEmptyConverter" />
             <toolkit:IsStringNullOrEmptyConverter x:Key="IsStringNullOrEmptyConverter" />
+            <toolkit:IsNullConverter x:Key="IsNullConverter" />
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
 
         </ResourceDictionary>
         <Style x:Key="Entrystyle" TargetType="Border">
