@@ -14,7 +14,7 @@
                 ContentTemplate="{DataTemplate local:MainPage}"
                 Route="MainPage" />
         </Tab>
-        <Tab Title="New Event">
+        <Tab Title="New Event" Route="NewEventTab">
             <ShellContent
                 ContentTemplate="{DataTemplate pages:NewEventPage}"
                 Route="NewEventPage" />
