@@ -25,6 +25,12 @@
             <Grid RowDefinitions="Auto,*" Margin="10,10,10,0" Padding="10,10,10,0">
                 <Label Text="Today:" Grid.Row="0" Style="{StaticResource Title}" Background="Transparent"/>
                 <CollectionView Grid.Row="1" ItemsSource="{Binding EventsToday}" SelectionMode="Single" SelectedItem="{Binding SelectedEvent}">
+                    <CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="Center">
+                            <Label HorizontalOptions="Center" Text="No Events Today" FontFamily="Raleway" FontSize="50" Margin="0,0,0,20"/>
+                            <Button Text="Add New Event" Clicked="Button_Clicked" Style="{StaticResource ActionButton}"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                     </CollectionView.ItemsLayout>
@@ -55,6 +61,12 @@
             <Grid RowDefinitions="Auto,*" Grid.Row="1" Margin="10,0,10,10" Padding="10,0,10,10">
                 <Label Text="Upcoming:" Style="{StaticResource Title}"/>
                 <CollectionView Grid.Row="1" ItemsSource="{Binding EventsUpcoming}" SelectionMode="Single" SelectedItem="{Binding SelectedEvent}">
+                    <CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="Center">
+                            <Label HorizontalOptions="Center" Text="No Upcoming Events" FontFamily="Raleway" FontSize="50" Margin="0,0,0,20"/>
+                            <Button Text="Add New Event" Clicked="Button_Clicked" Style="{StaticResource ActionButton}"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                     </CollectionView.ItemsLayout>
