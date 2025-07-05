@@ -8,6 +8,7 @@
              xmlns:converters="clr-namespace:EventPlanner.Gui.Converters"
              Shell.NavBarIsVisible="False"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:pickers="clr-namespace:EventPlanner.Gui.Shared.Pickers"
              BackgroundColor="#F8EDEB">
 
     <ContentPage.Resources>
@@ -99,6 +100,7 @@
             <Entry Text="{Binding EditedTitle}" />
             <Entry Text="{Binding EditedDescription}" Grid.Row="1"/>
             <DatePicker Date="{Binding EditedDate}" Grid.Row="2"/>
+            <pickers:CategoryPicker Categories="{Binding Categories}"/>
             <Button Text="Edit" Command="{Binding EditCommand}" Grid.Row="3"/>
         </Grid>
     </Grid>
