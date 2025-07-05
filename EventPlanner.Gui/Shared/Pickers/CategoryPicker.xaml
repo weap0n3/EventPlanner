@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventPlanner.Gui.Shared.Pickers.CategoryPicker"
+             xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
+             x:Name="this"
+             BindingContext="{x:Reference this}">
+    <picker:SfPicker  x:Name="picker" OkButtonClicked="OkButton_Clicked" HeightRequest="50" WidthRequest="150" Mode="Dialog" TextDisplayMode="Fade">
+        <picker:SfPicker.Columns>
+            <picker:PickerColumn ItemsSource="{Binding Categories}">
+            </picker:PickerColumn>
+        </picker:SfPicker.Columns>
+        <picker:SfPicker.FooterView>
+            <picker:PickerFooterView ShowOkButton="True" Height="40" />
+        </picker:SfPicker.FooterView>
+    </picker:SfPicker>
+</ContentView>
